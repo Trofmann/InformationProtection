@@ -1,6 +1,6 @@
 from typing import Generator, List
 
-from utils import get_char_code
+from utils import get_char_code, split_to_blocks, get_code_char
 
 
 class Coder(object):
@@ -12,10 +12,12 @@ class Coder(object):
 
     # region Кодирование
     def encode(self, msg: str) -> str:
-        for block in self.split_text_to_blocks(msg):
+        result = []
+        for block in self._split_text_to_blocks(msg):
             encoded_block = self._encode_block(block)
-            print()
-        return ''
+            encoded_str = self._get_bit_list_text(encoded_block)
+            result.append(encoded_str)
+        return ''.join(result)
 
     def _encode_block(self, block: List[int]) -> List[int]:
         """Кодирование блока"""
@@ -173,7 +175,7 @@ class Coder(object):
         code_str = code_str.zfill(8)
         return list(map(int, code_str))
 
-    def split_text_to_blocks(self, msg: str) -> Generator[List[int], None, None]:
+    def _split_text_to_blocks(self, msg: str) -> Generator[List[int], None, None]:
         """Разбиение текста на блоки по 64 бита"""
         # Заметим, что 1 символ == 1 байт, значит, надо разбить на блоки по 8 символов
         # Для удобства же сразу будем возвращать список битов
@@ -203,6 +205,17 @@ class Coder(object):
         for el_1, el_2 in zip(list_1, list_2):
             result.append(el_1 ^ el_2)
         return result
+
+    @staticmethod
+    def _get_bit_list_text(list_: List[int]) -> str:
+        """Перевод списка бит в строку"""
+        parts = split_to_blocks(list_, 8)
+        result = []
+        for part in parts:
+            bin_str = ''.join(map(str, part))
+            symbol_code = int(bin_str, 2)
+            result.append(get_code_char(symbol_code))
+        return ''.join(result)
 
     # endregion
 
