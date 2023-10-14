@@ -1,5 +1,5 @@
 from .gamma_generator import GammaGenerator
-from .utils import get_char_code, get_code_char
+from utils import get_char_code, get_code_char
 from . import const
 
 
