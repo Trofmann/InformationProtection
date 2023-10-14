@@ -5,6 +5,10 @@ from utils import get_char_code
 
 class Coder(object):
 
+    def __init__(self, key):
+        self.key = key
+        assert len(self.key) == 8  # Длина ключа должна быть равна 8
+
     # region Кодирование
     def encode(self, msg: str) -> str:
         for block in self.split_text_to_blocks(msg):
@@ -62,7 +66,6 @@ class Coder(object):
                 result[pos] = bit
         return result
 
-
     # endregion
 
     # region Декодирование
@@ -71,6 +74,7 @@ class Coder(object):
 
     # endregion
 
+    # region Вспомогательные функции
     @staticmethod
     def _get_symbol_byte_list(symbol: str) -> List[int]:
         """Преобразование символа в массив битов"""
@@ -101,3 +105,20 @@ class Coder(object):
             # Это был последний символ блока, можем вернуть блок
             if ind % block_len == block_len - 1:
                 yield result
+
+    # endregion
+
+    # region Ключи
+    def get_keys(self, key) -> List[List[int]]:
+        """
+        Получение ключей
+        :param key: введённый ключ
+        :return:
+        """
+        key_in_bit_format = []  # Ключ в виде массива битов
+        keys = []
+        for sym in key:
+            key_in_bit_format.extend(self._get_symbol_byte_list(sym))
+
+        return []
+    # endregion

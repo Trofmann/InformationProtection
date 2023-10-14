@@ -37,7 +37,7 @@ def encode(data=Body()):
         coder = Lab3Coder()
         result = coder.encode(open_text)
     elif kind == 'lab4':
-        coder = Lab4Coder()
+        coder = Lab4Coder(key)
         result = coder.encode(open_text)
 
     return {'result': result}
