@@ -13,7 +13,7 @@ class Coder(object):
 
     def _encode_block(self, block: List[int]):
         """Кодирование блока"""
-        permutated_block = self._get_initial_block_permutation(block)
+        block = self._get_initial_block_permutation(block)
 
     def _get_initial_block_permutation(self, block: List[int]) -> List[int]:
         """Начальная перестановка"""
@@ -36,6 +36,26 @@ class Coder(object):
             34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25,
         ]
         return [block[ind - 1] for ind in key]
+
+    def _func_r_k(self, r_part_block: List[int]):
+        """f(R[i-1], k[i])"""
+        extended_block = self._extend_block(r_part_block)
+
+    def _extend_block(self, r_part_block: List[int]):
+        """Расширение 32-битного блока до 48 бит"""
+        key = [
+            [2, 48], [3], [4], [5, 7], [6, 8], [9], [10], [11, 13], [12, 14], [15], [16], [17, 19], [18, 20], [21],
+            [22], [23, 35],
+            [24, 26], [27], [28], [29, 31], [30, 32], [33], [34], [35, 37], [36, 38], [39], [40], [41, 43], [42, 44],
+            [45], [46], [1, 47]
+        ]
+        result = [0 for _ in range(48)]
+        for ind, bit in enumerate(r_part_block):
+            positions = key[ind]
+            for pos in positions:
+                result[pos] = bit
+        return result
+
 
     # endregion
 
