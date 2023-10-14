@@ -236,7 +236,7 @@ class Coder(object):
         """Сложение по модулю 2 элементов списка"""
         result = []
         for el_1, el_2 in zip(list_1, list_2):
-            result.append(el_1 ^ el_2)
+            result.append(int(bool(el_1) != bool(el_2)))
         return result
 
     @staticmethod
