@@ -7,21 +7,23 @@ class Coder(object):
 
     @staticmethod
     def encode(msg: str) -> str:
-        gamma = GammaGenerator.generate(len(msg))  # Генерируем гамму
+        # gamma = GammaGenerator.generate(len(msg))  # Генерируем гамму
         codes = [get_char_code(c) for c in msg]  # Получаем коды символов сообщения
         result = []
-        for ind in range(len(codes)):
-            modified_code = (gamma[ind] + codes[ind]) % const.B  # Наложение гаммы
+        gamma_generator = GammaGenerator.generate_new(len(msg))  # Генератор гаммы
+        for ind, gamma_val in zip(range(len(codes)), gamma_generator):
+            modified_code = (gamma_val + codes[ind]) % const.B  # Наложение гаммы
             result.append(get_code_char(modified_code))
         return ''.join(result)
 
     @staticmethod
     def decode(msg: str) -> str:
-        gamma = GammaGenerator.generate(len(msg))  # Генерируем гамму
+        # gamma = GammaGenerator.generate(len(msg))  # Генерируем гамму
         codes = [get_char_code(c) for c in msg]  # Получаем коды символов сообщения
         result = []
-        for ind in range(len(codes)):
-            modified_code = codes[ind] - gamma[ind]
+        gamma_generator = GammaGenerator.generate_new(len(msg))  # Генератор гаммы
+        for ind, gamma_val in zip(range(len(codes)), gamma_generator):
+            modified_code = codes[ind] - gamma_val
             if modified_code < 0:
                 modified_code += const.B
             result.append(get_code_char(modified_code))
