@@ -181,7 +181,7 @@ class Coder(object):
         return ''.join(result)
 
     def _decode_block(self, block: List[int]) -> List[int]:
-        block = initial_block_permutator.reverse(block)
+        block = reverse_block_permutator.reverse(block)
 
         left_part, right_part = block[0:32], block[32:64]
 
@@ -194,7 +194,7 @@ class Coder(object):
             right_part = new_right_part
 
         block = left_part + right_part
-        block = reverse_block_permutator.reverse(block)
+        block = initial_block_permutator.reverse(block)
         return block
 
     # endregion
