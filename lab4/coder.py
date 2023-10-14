@@ -215,9 +215,9 @@ class Coder(object):
 
         # В случае нехватки дополним пробелами в конце
         block_len = 8
-        need = 8 - len(msg) % block_len
+        need = len(msg) % block_len
         if need:
-            msg = msg + ' ' * need
+            msg = msg + ' ' * (8 - need)
 
         result = []
         for ind, sym in enumerate(msg):
