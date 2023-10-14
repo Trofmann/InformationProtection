@@ -63,7 +63,7 @@ def decode(data=Body()):
         coder = Lab3Coder()
         result = coder.decode(encoded_text)
     elif kind == 'lab4':
-        coder = Lab4Coder()
+        coder = Lab4Coder(key)
         result = coder.decode(encoded_text)
 
     return {'result': result}

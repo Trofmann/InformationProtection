@@ -13,6 +13,15 @@ initial_block_permutator = Permutator(
     ]
 )
 
+reverse_block_permutator = Permutator(
+    key=[
+        40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47, 15, 55, 23, 63, 31,
+        38, 6, 46, 14, 54, 22, 62, 30, 37, 5, 45, 13, 53, 21, 61, 29,
+        36, 4, 44, 12, 52, 20, 60, 28, 35, 3, 43, 11, 51, 19, 59, 27,
+        34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25,
+    ]
+)
+
 block_permutator = Permutator(
     key=[
         16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10,
@@ -63,7 +72,7 @@ class Coder(object):
 
     def _get_reverse_block_permutation(self, block: List[int]) -> List[int]:
         """Обратная перестановка"""
-        return initial_block_permutator.reverse(block)
+        return reverse_block_permutator.direct(block)
 
     def _func_r_k(self, r_part_block: List[int], key: List[int]):
         """f(R[i-1], k[i])"""
@@ -164,7 +173,29 @@ class Coder(object):
 
     # region Декодирование
     def decode(self, msg: str) -> str:
-        return ''
+        result = []
+        for block in self._split_text_to_blocks(msg):
+            decoded_block = self._decode_block(block)
+            decoded_str = self._get_bit_list_text(decoded_block)
+            result.append(decoded_str)
+        return ''.join(result)
+
+    def _decode_block(self, block: List[int]) -> List[int]:
+        block = initial_block_permutator.reverse(block)
+
+        left_part, right_part = block[0:32], block[32:64]
+
+        for i in range(15, -1, -1):
+            new_right_part = left_part
+            key = self.keys[i]
+            new_left_part = self._lists_xor(right_part, self._func_r_k(new_right_part, key))
+
+            left_part = new_left_part
+            right_part = new_right_part
+
+        block = left_part + right_part
+        block = reverse_block_permutator.reverse(block)
+        return block
 
     # endregion
 
