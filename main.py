@@ -7,6 +7,7 @@ from fastapi.responses import FileResponse
 from lab1 import Coder as Lab1Coder
 from lab2 import Coder as Lab2Coder
 from lab3 import Coder as Lab3Coder
+from lab4 import Coder as Lab4Coder
 
 app = FastAPI()
 
@@ -35,6 +36,9 @@ def encode(data=Body()):
     elif kind == 'lab3':
         coder = Lab3Coder()
         result = coder.encode(open_text)
+    elif kind == 'lab4':
+        coder = Lab4Coder()
+        result = coder.encode(open_text)
 
     return {'result': result}
 
@@ -57,6 +61,9 @@ def decode(data=Body()):
         result = coder.decode(encoded_text)
     elif kind == 'lab3':
         coder = Lab3Coder()
+        result = coder.decode(encoded_text)
+    elif kind == 'lab4':
+        coder = Lab4Coder()
         result = coder.decode(encoded_text)
 
     return {'result': result}
