@@ -14,13 +14,14 @@ class Coder(object):
     def encode(self, msg: str) -> str:
         for block in self.split_text_to_blocks(msg):
             encoded_block = self._encode_block(block)
+            print()
         return ''
 
     def _encode_block(self, block: List[int]) -> List[int]:
         """Кодирование блока"""
         block = self._get_initial_block_permutation(block)
 
-        left_part, right_part = block[0:32], block[32:63]
+        left_part, right_part = block[0:32], block[32:64]
         for i in range(16):
             # 16 циклов шифрующих преобразований
             new_left_part = right_part
@@ -61,7 +62,7 @@ class Coder(object):
         # Расширение до 48 битов
         block = self._extend_block(r_part_block)
         # Гаммирование с ключом
-        block = self._lists_xor(r_part_block, key)
+        block = self._lists_xor(block, key)
         # Разбиение на 8 блоков по 6 бит
         parts = [block[i:i + 6] for i in range(0, len(block), 6)]
 
@@ -91,7 +92,7 @@ class Coder(object):
         for ind, bit in enumerate(r_part_block):
             positions = key[ind]
             for pos in positions:
-                result[pos] = bit
+                result[pos - 1] = bit
         return result
 
     @staticmethod
@@ -254,7 +255,7 @@ class Coder(object):
     def _key_part_cyclic_left_shift(key_part: List[int], ind: int) -> List[int]:
         """Циклический сдвиг влево части ключа"""
         shift_key = [
-            1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 1
+            1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1
         ]
         value = shift_key[ind]
         return key_part[value:] + key_part[:value]
