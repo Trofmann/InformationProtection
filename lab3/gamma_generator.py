@@ -12,7 +12,7 @@ class GammaGenerator(object):
         return result
 
     @classmethod
-    def generate_new(cls, count_: int) -> Generator[int]:
+    def generate_new(cls, count_: int) -> Generator[int, None, None]:
         prev = None
         for _ in range(count_):
             # Для самомго первого
