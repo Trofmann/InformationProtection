@@ -15,6 +15,12 @@ class Coder(object):
         """Кодирование блока"""
         block = self._get_initial_block_permutation(block)
 
+        for i in range(16):
+            # 16 циклов шифрующих преобразований
+            pass
+
+        block = self._get_reverse_block_permutation(block)
+
     def _get_initial_block_permutation(self, block: List[int]) -> List[int]:
         """Начальная перестановка"""
         # Индекс - IP[i], Значение - OT[i]
