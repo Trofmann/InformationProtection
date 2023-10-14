@@ -13,12 +13,10 @@ initial_block_permutator = Permutator(
     ]
 )
 
-reverse_block_permutator = Permutator(
+block_permutator = Permutator(
     key=[
-        40, 8, 48, 16, 56, 24, 64, 32, 39, 7, 47, 15, 55, 23, 63, 31,
-        38, 6, 46, 14, 54, 22, 62, 30, 37, 5, 45, 13, 53, 21, 61, 29,
-        36, 4, 44, 12, 52, 20, 60, 28, 35, 3, 43, 11, 51, 19, 59, 27,
-        34, 2, 42, 10, 50, 18, 58, 26, 33, 1, 41, 9, 49, 17, 57, 25,
+        16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10,
+        2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25
     ]
 )
 
@@ -65,7 +63,7 @@ class Coder(object):
 
     def _get_reverse_block_permutation(self, block: List[int]) -> List[int]:
         """Обратная перестановка"""
-        return reverse_block_permutator.direct(block)
+        return initial_block_permutator.reverse(block)
 
     def _func_r_k(self, r_part_block: List[int], key: List[int]):
         """f(R[i-1], k[i])"""
@@ -84,11 +82,7 @@ class Coder(object):
         return self._get_block_permutation(block)
 
     def _get_block_permutation(self, block: List[int]):
-        permutation_key = [
-            16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10,
-            2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25
-        ]
-        return [block[ind - 1] for ind in permutation_key]
+        return block_permutator.direct(block)
 
     def _extend_block(self, r_part_block: List[int]) -> List[int]:
         """Расширение 32-битного блока до 48 бит"""

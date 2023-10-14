@@ -10,7 +10,7 @@ class Permutator(object):
         """Получение обратного ключа перестановки"""
         back_key = [0 for _ in range(len(self.key))]
         for ind, val in enumerate(self.key):
-            back_key[val - 1] = ind
+            back_key[val - 1] = ind + 1
         return back_key
 
     def direct(self, list_: List[int]):
