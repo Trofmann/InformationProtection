@@ -13,9 +13,9 @@ class Coder(object):
 
     def _encode_block(self, block: List[int]):
         """Кодирование блока"""
-        permutated_block = self._permutate_block(block)
+        permutated_block = self._get_initial_block_permutation(block)
 
-    def _permutate_block(self, block: List[int]) -> List[int]:
+    def _get_initial_block_permutation(self, block: List[int]) -> List[int]:
         """Начальная перестановка"""
         # Индекс - IP[i], Значение - OT[i]
         # OT[i] - i-й бит входного блока, IP[i] - i-бит выходного блока
