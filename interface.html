@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Защита информации</title>
+    <meta charset="utf-8"/>
+</head>
+<body>
+<label for="kinds">Выберите способ:</label>
+<select id="kinds" name="kinds">
+    <option value="lab1">ЛБ1</option>
+    <option value="lab2">ЛБ2</option>
+    <option value="lab3">ЛБ3</option>
+</select>
+<p>
+    <label for="open_text">Открытый текст:</label>
+    <textarea name="open_text" id="open_text" cols="40" rows="20" required></textarea>
+</p>
+<p>
+    <label for="key">Ключ</label>
+    <textarea id="key" name="key" cols="40" rows="60"></textarea>
+</p>
+<p>
+    <label for="encoded_text">Зашифрованный текст:</label>
+    <textarea name="encoded_text" id="encoded_text" cols="40" rows="20" required></textarea>
+</p>
+<button onclick="encode()">Зашифровать</button>
+<button onclick="decode()">Расшифровать</button>
+<script type="application/javascript">
+    const open_text_elem = document.getElementById('open_text');
+    const encoded_text_elem = document.getElementById('encoded_text');
+
+    async function encode() {
+        var key = document.getElementById('key').value;
+        var kind = document.getElementById('kinds').value;
+        const response = await fetch('/encode', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                kind: kind,
+                open_text: open_text_elem.value,
+                key: key,
+            })
+        })
+        if (response.ok) {
+            const data = await response.json();
+            encoded_text_elem.value = data['result'];
+        } else {
+            console.log(response);
+        }
+    }
+
+    async function decode() {
+        var key = document.getElementById('key').value;
+        const kind = document.getElementById('kinds').value;
+        const response = await fetch('/decode', {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                kind: kind,
+                encoded_text: encoded_text_elem.value,
+                key: key,
+            })
+        })
+        if (response.ok) {
+            const data = await response.json();
+            open_text_elem.value = data['result'];
+        } else {
+            console.log(response)
+        }
+    }
+</script>
+</body>
+</html>
