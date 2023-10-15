@@ -1,4 +1,4 @@
-from lab3.const import A, B, C, T_0
+from const import A, B, C, T_0
 from typing import Generator
 
 

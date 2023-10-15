@@ -1,3 +1,8 @@
+A = 29
+C = 27
+T_0 = 16
+B = 256
+
 alphabet = []
 for i in range(128):
     alphabet.append(chr(i))

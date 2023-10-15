@@ -1,6 +1,6 @@
 from gamma_generator import GammaGenerator
 from utils import get_char_code, get_code_char
-from . import const
+import const
 
 
 class Coder(object):
