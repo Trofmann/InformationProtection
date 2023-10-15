@@ -9,7 +9,9 @@ class GammaGenerator(object):
             # Для самого первого
             if prev is None:
                 prev = T_0
-                yield T_0
-            next_elem = (A * prev + C) % B
-            prev = next_elem
-            yield next_elem
+                res = T_0
+            else:
+                next_elem = (A * prev + C) % B
+                prev = next_elem
+                res = next_elem
+            yield res
