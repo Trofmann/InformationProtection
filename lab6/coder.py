@@ -22,7 +22,7 @@ class Coder(DesMixin):
             encoded_input_block = self.get_text_bits_list(encoded_input_block)
 
             # Левые k бит результата шифрования гаммируются с левыми k битами открытого текст
-            output_block = self.lists_xor(sym_bits, encoded_input_block)
+            output_block = self.lists_xor(sym_bits, encoded_input_block[0:self.k])
 
             # k-битовый шифротекст поступает на дальнейшую обработку
             result.append(self.get_bit_list_text(output_block))
