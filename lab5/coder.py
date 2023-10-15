@@ -1,7 +1,6 @@
 from typing import List
 
 from des_mixin import DesMixin
-from gamma_generator import GammaGenerator
 from lab4 import Coder as Lab4Coder
 
 
