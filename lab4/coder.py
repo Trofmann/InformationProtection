@@ -41,6 +41,7 @@ class Coder(DesMixin):
     def encode(self, msg: str) -> str:
         result = []
         for block in self.split_text_to_blocks(msg):
+            block = self.text_to_bits_list(block)
             encoded_block = self._encode_block(block)
             encoded_str = self.get_bit_list_text(encoded_block)
             result.append(encoded_str)
@@ -186,6 +187,7 @@ class Coder(DesMixin):
     def decode(self, msg: str) -> str:
         result = []
         for block in self.split_text_to_blocks(msg):
+            block = self.text_to_bits_list(block)
             decoded_block = self._decode_block(block)
             decoded_str = self.get_bit_list_text(decoded_block)
             result.append(decoded_str)
