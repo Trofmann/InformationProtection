@@ -8,6 +8,7 @@ from lab1 import Coder as Lab1Coder
 from lab2 import Coder as Lab2Coder
 from lab3 import Coder as Lab3Coder
 from lab4 import Coder as Lab4Coder
+from lab5 import Coder as Lab5Coder
 
 app = FastAPI()
 
@@ -39,6 +40,9 @@ def encode(data=Body()):
     elif kind == 'lab4':
         coder = Lab4Coder(key)
         result = coder.encode(open_text)
+    elif kind == 'lab5':
+        coder = Lab5Coder(key)
+        result = coder.encode(open_text)
 
     return {'result': result}
 
@@ -64,6 +68,9 @@ def decode(data=Body()):
         result = coder.decode(encoded_text)
     elif kind == 'lab4':
         coder = Lab4Coder(key)
+        result = coder.decode(encoded_text)
+    elif kind == 'lab5':
+        coder = Lab5Coder(key)
         result = coder.decode(encoded_text)
 
     return {'result': result}
