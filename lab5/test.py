@@ -3,7 +3,7 @@ from lab5.coder import Coder
 
 
 class TestLab5Coder(unittest.TestCase):
-    def test_working(self):
+    def test_open_text_equals_decoded(self):
         key = 'aaabeaaf'
         open_text = '123456789101112131415'
         coder = Coder(key=key)
