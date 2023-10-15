@@ -95,18 +95,29 @@ class Coder(object):
 
     def _extend_block(self, r_part_block: List[int]) -> List[int]:
         """Расширение 32-битного блока до 48 бит"""
+        # key = [
+        #     [2, 48], [3], [4], [5, 7], [6, 8], [9], [10], [11, 13], [12, 14], [15], [16], [17, 19], [18, 20], [21],
+        #     [22], [23, 35],
+        #     [24, 26], [27], [28], [29, 31], [30, 32], [33], [34], [35, 37], [36, 38], [39], [40], [41, 43], [42, 44],
+        #     [45], [46], [1, 47]
+        # ]
+        # result = [0 for _ in range(48)]
+        # for ind, bit in enumerate(r_part_block):
+        #     positions = key[ind]
+        #     for pos in positions:
+        #         result[pos - 1] = bit
+        # return result
         key = [
-            [2, 48], [3], [4], [5, 7], [6, 8], [9], [10], [11, 13], [12, 14], [15], [16], [17, 19], [18, 20], [21],
-            [22], [23, 35],
-            [24, 26], [27], [28], [29, 31], [30, 32], [33], [34], [35, 37], [36, 38], [39], [40], [41, 43], [42, 44],
-            [45], [46], [1, 47]
+            32, 1, 2, 3, 4, 5,
+            4, 5, 6, 7, 8, 9,
+            8, 9, 10, 11, 12, 13,
+            12, 13, 14, 15, 16, 17,
+            16, 17, 18, 19, 20, 21,
+            20, 21, 22, 23, 24, 25,
+            24, 25, 26, 27, 28, 29,
+            28, 29, 30, 31, 32, 1,
         ]
-        result = [0 for _ in range(48)]
-        for ind, bit in enumerate(r_part_block):
-            positions = key[ind]
-            for pos in positions:
-                result[pos - 1] = bit
-        return result
+        return [r_part_block[ind - 1] for ind in key]
 
     @staticmethod
     def _ss_transformation(ind: int, part: List[int]) -> List[int]:
