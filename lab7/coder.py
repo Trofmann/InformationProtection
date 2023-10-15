@@ -32,5 +32,6 @@ class Coder(DesMixin):
         return ''.join(result)
 
     def decode(self, msg: str) -> str:
-        result = []
-        return ''.join(result)
+        # Смотря на алгоритм, можно заметить, что в нём одни и те же действия.
+        # Достигается за счёт симметрии xor
+        return self.encode(msg)
