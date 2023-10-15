@@ -1,6 +1,7 @@
 from typing import List, Generator
 
 from utils import get_char_code, split_to_blocks, get_code_char
+from gamma_generator import GammaGenerator
 
 
 class DesMixin(object):
@@ -65,3 +66,9 @@ class DesMixin(object):
             symbol_code = int(bin_str, 2)
             result.append(get_code_char(symbol_code))
         return ''.join(result)
+
+    def get_initial_gamma(self, elem_count: int, elem_len: int) -> List[int]:
+        result = []
+        for num in GammaGenerator().generate_new(elem_count):
+            result.extend(self.get_int_bit_list(num, elem_len))
+        return result

@@ -11,9 +11,7 @@ class Coder(DesMixin):
         self.des_coder = Lab4Coder(self.key)
 
     def encode(self, msg: str) -> str:
-        prev_c = []  # type: List[int]
-        for num in GammaGenerator().generate_new(8):
-            prev_c.extend(self.get_int_bit_list(num, 8))
+        prev_c = self.get_initial_gamma(8, 8)  # type: List[int]
         result = []
         for block in self.split_text_to_blocks(msg):
             block = self.get_text_bits_list(block)
@@ -26,9 +24,7 @@ class Coder(DesMixin):
 
     def decode(self, msg: str) -> str:
         # Предыдущий зашифрованный блок
-        prev_encoded_block = []  # type: List[int]
-        for num in GammaGenerator().generate_new(8):
-            prev_encoded_block.extend(self.get_int_bit_list(num, 8))
+        prev_encoded_block = self.get_initial_gamma(8, 8)
         # Результат
         result = []
         for block in self.split_text_to_blocks(msg):
