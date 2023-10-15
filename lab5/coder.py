@@ -1,7 +1,7 @@
-from gamma_generator import GammaGenerator
+from des_mixin import DesMixin
 
 
-class Coder(object):
+class Coder(DesMixin):
     def __init__(self, key: str):
         self.key = key
 
@@ -9,8 +9,4 @@ class Coder(object):
         pass
 
     def decode(self, msg: str):
-        pass
-
-    def _split_text_to_blocks(self, text: str):
-        # Надо разбить текст на 64 битовые блоки. 1 символ 8 бит, значит на блоки по 8 символов
         pass
