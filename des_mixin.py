@@ -40,7 +40,7 @@ class DesMixin(object):
             if ind % block_len == block_len - 1:
                 yield ''.join(result)
 
-    def text_to_bits_list(self, text: str) -> List[int]:
+    def get_text_bits_list(self, text: str) -> List[int]:
         """Текст в список битов"""
         result = []
         for sym in text:
