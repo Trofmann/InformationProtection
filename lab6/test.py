@@ -4,7 +4,7 @@ from lab6.coder import Coder
 
 class TestLab6Coder(unittest.TestCase):
     def test_open_text_equals_decoded(self):
-        key = 'dhsgfhsg'
+        key = 'dhsgahsg'
         open_text = '123456789101112131415'
         coder = Coder(key=key)
         encoded = coder.encode(open_text)
