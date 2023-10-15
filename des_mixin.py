@@ -7,12 +7,16 @@ class DesMixin(object):
     """Вспомогательные функции для des"""
 
     @staticmethod
-    def get_symbol_byte_list(symbol: str) -> List[int]:
+    def get_symbol_bit_list(symbol: str) -> List[int]:
         """Преобразование символа в массив битов"""
         code = get_char_code(symbol)
-        code_str = bin(code)[2::]
-        code_str = code_str.zfill(8)
-        return list(map(int, code_str))
+        return DesMixin.get_int_bit_list(code, len_=8)
+
+    @staticmethod
+    def get_int_bit_list(num: int, len_=8) -> List[int]:
+        num_str = bin(num)[2::]
+        num_str = num_str.zfill(len_)
+        return list(map(int, num_str))
 
     def split_text_to_blocks(self, msg: str) -> Generator[str, None, None]:
         """Разбиение текста на блоки по 64 бита"""
@@ -40,7 +44,7 @@ class DesMixin(object):
         """Текст в список битов"""
         result = []
         for sym in text:
-            result.extend(self.get_symbol_byte_list(sym))
+            result.extend(self.get_symbol_bit_list(sym))
         return result
 
     @staticmethod

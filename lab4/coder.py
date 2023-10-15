@@ -222,7 +222,7 @@ class Coder(DesMixin):
         key = []  # type: List[int]  # Ключ в виде массива битов
         keys = []  # type: List[List[int]]
         for sym in key_txt:
-            key.extend(self.get_symbol_byte_list(sym))
+            key.extend(self.get_symbol_bit_list(sym))
         key = self._get_key_permutation_1(key)
 
         key_left_part, key_right_part = key[0:28], key[28:56]
