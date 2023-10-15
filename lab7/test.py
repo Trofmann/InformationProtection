@@ -1,4 +1,5 @@
 import unittest
+
 from lab7.coder import Coder
 
 
