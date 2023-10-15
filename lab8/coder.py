@@ -20,6 +20,7 @@ class Coder(object):
 
         key_len = len(self.key)
         msg = get_text_bits_list(msg)  # Переводим сообщение в массив бит
+        msg.append(0)  # Последний ноль - маркер  окончания сообщения
         msg_len = len(msg)
         result = []
         msg_sym_ind = 0  # Указатель на бит, который надо вставить в контейнер
