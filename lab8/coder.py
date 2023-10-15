@@ -5,6 +5,14 @@ class Coder(object):
     def __init__(self, key: str = ''):
         self.key = key  # Для дешифрования ключ не нужен
         self.sentence_separators = '.!?'
+        self.__prepare_key()
+
+    def __prepare_key(self):
+        for elem in self.sentence_separators:
+            old = f'{elem}  '
+            new = f'{elem} '
+            while old in self.key:
+                self.key = self.key.replace(old, new)
 
     def encode(self, msg: str) -> str:
         if not self.key:
