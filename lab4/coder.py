@@ -40,9 +40,9 @@ class Coder(DesMixin):
     # region Кодирование
     def encode(self, msg: str) -> str:
         result = []
-        for block in self._split_text_to_blocks(msg):
+        for block in self.split_text_to_blocks(msg):
             encoded_block = self._encode_block(block)
-            encoded_str = self._get_bit_list_text(encoded_block)
+            encoded_str = self.get_bit_list_text(encoded_block)
             result.append(encoded_str)
         return ''.join(result)
 
@@ -55,7 +55,7 @@ class Coder(DesMixin):
             # 16 циклов шифрующих преобразований
             new_left_part = right_part
             key = self.keys[i]
-            new_right_part = self._lists_xor(left_part, self._func_r_k(right_part, key))
+            new_right_part = self.lists_xor(left_part, self._func_r_k(right_part, key))
 
             left_part = new_left_part
             right_part = new_right_part
@@ -79,7 +79,7 @@ class Coder(DesMixin):
         # Расширение до 48 битов
         block = self._extend_block(r_part_block)
         # Гаммирование с ключом
-        block = self._lists_xor(block, key)
+        block = self.lists_xor(block, key)
         # Разбиение на 8 блоков по 6 бит
         parts = [block[i:i + 6] for i in range(0, len(block), 6)]
 
@@ -185,9 +185,9 @@ class Coder(DesMixin):
     # region Декодирование
     def decode(self, msg: str) -> str:
         result = []
-        for block in self._split_text_to_blocks(msg):
+        for block in self.split_text_to_blocks(msg):
             decoded_block = self._decode_block(block)
-            decoded_str = self._get_bit_list_text(decoded_block)
+            decoded_str = self.get_bit_list_text(decoded_block)
             result.append(decoded_str)
         return ''.join(result)
 
@@ -199,7 +199,7 @@ class Coder(DesMixin):
         for i in range(15, -1, -1):
             new_right_part = left_part
             key = self.keys[i]
-            new_left_part = self._lists_xor(right_part, self._func_r_k(new_right_part, key))
+            new_left_part = self.lists_xor(right_part, self._func_r_k(new_right_part, key))
 
             left_part = new_left_part
             right_part = new_right_part
@@ -220,7 +220,7 @@ class Coder(DesMixin):
         key = []  # type: List[int]  # Ключ в виде массива битов
         keys = []  # type: List[List[int]]
         for sym in key_txt:
-            key.extend(self._get_symbol_byte_list(sym))
+            key.extend(self.get_symbol_byte_list(sym))
         key = self._get_key_permutation_1(key)
 
         key_left_part, key_right_part = key[0:28], key[28:56]
