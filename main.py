@@ -34,35 +34,28 @@ def encode(data=Body()):
     if kind == 'lab1':
         key = json.loads(key)  # type: dict
         coder = Lab1Coder(key)
-        result = coder.encode(msg=open_text)
     elif kind == 'lab2':
         key = list(map(int, key.split()))  # type: list
         coder = Lab2Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab3':
         coder = Lab3Coder()
-        result = coder.encode(open_text)
     elif kind == 'lab4':
         coder = Lab4Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab5':
         coder = Lab5Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab6':
         coder = Lab6Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab7':
         coder = Lab7Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab8':
         coder = Lab8Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab9_1':
         coder = Lab91Coder(key)
-        result = coder.encode(open_text)
     elif kind == 'lab9_2':
         coder = Lab92Coder(key)
-        result = coder.encode(open_text)
+    else:
+        raise Exception('Неизвестная ЛБ')
+    result = coder.encode(open_text)
 
     return {'result': result}
 
@@ -78,35 +71,28 @@ def decode(data=Body()):
     if kind == 'lab1':
         key = json.loads(key)  # type: dict
         coder = Lab1Coder(key)
-        result = coder.decode(msg=encoded_text)
     elif kind == 'lab2':
         key = list(map(int, key.split()))  # type: list
         coder = Lab2Coder(key)
-        result = coder.decode(encoded_text)
     elif kind == 'lab3':
         coder = Lab3Coder()
-        result = coder.decode(encoded_text)
     elif kind == 'lab4':
         coder = Lab4Coder(key)
-        result = coder.decode(encoded_text)
     elif kind == 'lab5':
         coder = Lab5Coder(key)
-        result = coder.decode(encoded_text)
     elif kind == 'lab6':
         coder = Lab6Coder(key)
-        result = coder.decode(encoded_text)
     elif kind == 'lab7':
         coder = Lab7Coder(key)
-        result = coder.decode(encoded_text)
     elif kind == 'lab8':
         coder = Lab8Coder()
-        result = coder.decode(encoded_text)
     elif kind == 'lab9_1':
         coder = Lab91Coder()
-        result = coder.decode(encoded_text)
     elif kind == 'lab9_2':
         coder = Lab92Coder()
-        result = coder.decode(encoded_text)
+    else:
+        raise Exception('Неизвестная ЛБ')
+    result = coder.decode(encoded_text)
 
     return {'result': result}
 
