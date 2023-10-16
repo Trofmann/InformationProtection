@@ -8,4 +8,8 @@ class TestLab92Coder(unittest.TestCase):
             key = f.read()
         open_text = '123141'
         coder = Coder(key)
-        self.assertEqual(open_text, coder.decode(coder.encode(open_text)))
+        encoded = coder.encode(open_text)
+        if encoded == 'Сообщение не влезло в контейнер':
+            raise Exception('Сообщение не влезло в контейнер')
+        self.assertEqual(open_text, coder.decode(encoded))
+
