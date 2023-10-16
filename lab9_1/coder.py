@@ -22,6 +22,7 @@ class Coder(object):
             line = line.rstrip(' ')
             if msg_sym_ind == msg_len:
                 # Сообщение полностью в контейнере
+                result.append(line)
                 continue
 
             if msg[msg_sym_ind]:
