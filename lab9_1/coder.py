@@ -37,7 +37,6 @@ class Coder(object):
         return self.separator.join(result)
 
     def decode(self, msg: str) -> str:
-        msg_len = len(msg)
         result = []  # type: List[int]
         result_str = []  # type: List[str]
 
@@ -52,7 +51,7 @@ class Coder(object):
         for block in self._split_to_blocks(result):
             block = get_bit_list_text(block)
             result_str.append(block)
-        return self.separator.join(result_str)
+        return ''.join(result_str)
 
     def _split_to_blocks(self, list_: List[int], block_len=8) -> Generator[List[int], None, None]:
         block = []
